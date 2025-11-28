@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    command: uvicorn server:app --host 0.0.0.0 --port 8000 --reload
     volumes:
       - ./api:/app
     depends_on:
@@ -14,6 +15,7 @@ services:
     build:
       context: ./worker
       dockerfile: Dockerfile
+    command: python worker.py
     volumes:
       - ./worker:/worker
     depends_on:

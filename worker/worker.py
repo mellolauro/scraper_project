@@ -1,11 +1,12 @@
 import sys
 import os
-from rq import Worker, Queue, Connection
-from queue_connection import redis_conn
+from redis import Redis
+from rq import Worker, Queue
 
-listen = ["scraping_queue"]
+redis_conn = Redis(host="redis", port=6379, db=0)
+
+queue = Queue("scraper_queue", connection=redis_conn)
 
 if __name__ == "__main__":
-    with Connection(redis_conn):
-        worker = Worker(map(Queue, listen))
-        worker.work()
+    worker = Worker([queue], connection=redis_conn)
+    worker.work()

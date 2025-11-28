@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI
-from .models import SearchRequest
+from models import SearchRequest
 from scraper.run_scraper import run_search 
 
 app = FastAPI(title="Scraper Adherence API")
