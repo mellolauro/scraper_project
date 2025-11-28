@@ -1,13 +1,14 @@
-# Estágio de Build
-FROM node:20 AS builder
+FROM node:20
+
 WORKDIR /app
 
-# Copiar e instalar dependências
-COPY package.json package-lock.json ./
+COPY package.json .
+# Só copie o lock se existir
+# COPY package-lock.json .
+
 RUN npm install
 
 COPY . .
-RUN npm run build
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

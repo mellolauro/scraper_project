@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"pages/index.js -> ../components/SearchForm\":{\"id\":\"pages/index.js -> ../components/SearchForm\",\"files\":[\"static/chunks/components_SearchForm_js.js\"]}}"

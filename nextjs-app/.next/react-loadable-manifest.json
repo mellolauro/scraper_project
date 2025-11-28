@@ -1,0 +1,8 @@
+{
+  "pages/index.js -> ../components/SearchForm": {
+    "id": "pages/index.js -> ../components/SearchForm",
+    "files": [
+      "static/chunks/components_SearchForm_js.js"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+playwright
+pandas
+asyncio 
+psutil
+
+rq
+redis
+
+fastapi
+uvicorn[standard]==0.29.0
+python-dotenv
+psycopg2-binary
+
+sentence-transformers
+torch
+transformers
