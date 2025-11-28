@@ -1,28 +1,39 @@
-version: "3.9"
-
 services:
-  redis:
-    image: redis:7
-    container_name: redis
-    ports:
-      - "6379:6379"
-
   api:
-    build: ./server
-    container_name: fastapi_api
-    volumes:
-      - ./server:/app
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./api:/app
     depends_on:
       - redis
 
   worker:
-    build: ./worker
-    container_name: scraper_worker
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
     volumes:
-      - ./worker:/app
-      - ./scraper:/app/scraper
-      - ./queue:/app/queue
+      - ./worker:/worker
     depends_on:
       - redis
+      - api
+
+  nextjs:
+    build:
+      context: ./nextjs-app
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: unless-stopped  
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nextjs-app:/app
+    depends_on:
+      - api
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
