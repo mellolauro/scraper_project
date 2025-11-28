@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  api:
+    build: ./server
+    container_name: fastapi_api
+    volumes:
+      - ./server:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  worker:
+    build: ./worker
+    container_name: scraper_worker
+    volumes:
+      - ./worker:/app
+      - ./scraper:/app/scraper
+      - ./queue:/app/queue
+    depends_on:
+      - redis
